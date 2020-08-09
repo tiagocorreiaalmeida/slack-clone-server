@@ -21,5 +21,11 @@ cp .env.example .env
 
 ```bash
 docker-compose up -d
-npm run dev
+yarn dev
+```
+
+## For testing
+
+```bash
+yarn test
 ```
