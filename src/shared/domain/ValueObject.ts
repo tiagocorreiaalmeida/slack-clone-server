@@ -1,16 +1,13 @@
 interface ValueObjectProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any;
 }
 
-/**
- * @desc ValueObjects are objects that we determine their
- * equality through their structrual property.
- */
-
 export abstract class ValueObject<T extends ValueObjectProps> {
-  public props: T;
+  props: T;
 
   constructor(props: T) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const baseProps: any = {
       ...props,
     };

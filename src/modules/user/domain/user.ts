@@ -11,11 +11,23 @@ interface UserProps {
   username: UserName;
   displayName?: UserDisplayName;
   password: UserPassword;
+  isVerified: boolean;
+  isActive: boolean;
+  isAdmin: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface CreateUserProps {
+  email: UserEmail;
+  username: UserName;
+  displayName?: UserDisplayName;
+  password: UserPassword;
   isVerified?: boolean;
   isActive?: boolean;
   isAdmin?: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class User extends Entity<UserProps> {
@@ -44,11 +56,11 @@ export class User extends Entity<UserProps> {
   }
 
   get isActive(): boolean {
-    return !!this.props.isActive;
+    return this.props.isActive;
   }
 
   get isAdmin(): boolean {
-    return !!this.props.isAdmin;
+    return this.props.isAdmin;
   }
 
   get createdAt(): Date {
@@ -63,13 +75,15 @@ export class User extends Entity<UserProps> {
     return this.props.password;
   }
 
-  static create(props: UserProps, id?: UniqueEntityID): Result<User> {
+  static create(props: CreateUserProps, id?: UniqueEntityID): Result<User> {
     const user = new User(
       {
         ...props,
         isAdmin: !!props.isAdmin,
         isActive: !!props.isActive,
         isVerified: !!props.isVerified,
+        createdAt: props.createdAt || new Date(),
+        updatedAt: props.updatedAt || new Date(),
       },
       id,
     );

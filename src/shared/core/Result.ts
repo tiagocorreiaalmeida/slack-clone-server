@@ -1,9 +1,9 @@
 export class Result<T> {
   isError: boolean;
-  error: T | string | null;
+  error: string | null;
   private value: T | null;
 
-  constructor(isError: boolean, error: T | string | null, value?: T) {
+  constructor(isError: boolean, error: string | null, value?: T) {
     if (!isError && error) {
       throw new Error("Invalid Operation: A result can't be success and contain an error");
     }
@@ -24,8 +24,11 @@ export class Result<T> {
     return this.value as T;
   }
 
-  getError(): T {
-    return this.error as T;
+  getError(): string {
+    if (!this.isError) {
+      throw new Error('');
+    }
+    return this.error as string;
   }
 
   static success<U>(value: U): Result<U> {

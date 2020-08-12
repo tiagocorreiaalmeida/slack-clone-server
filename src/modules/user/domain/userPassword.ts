@@ -35,7 +35,7 @@ export class UserPassword extends ValueObject<UserPasswordProps> {
     return bcrypt.hashSync(password, salt);
   }
 
-  private isAlreadyHashed(): boolean {
+  isAlreadyHashed(): boolean {
     return !!this.props.hashed;
   }
 
