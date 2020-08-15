@@ -1,6 +1,6 @@
 import {
   UserName,
-  INVALID_USER_NAME,
+  INVALID_USER_NAME_ERROR,
   USER_NAME_MIN_LENGTH,
   USER_NAME_MAX_LENGTH,
 } from '../userName';
@@ -12,7 +12,7 @@ describe('userName', () => {
 
       const userName = UserName.create({ value: invalidUserName });
       expect(userName.isError).toBeTruthy();
-      expect(userName.getError()).toEqual(INVALID_USER_NAME);
+      expect(userName.getError()).toEqual(INVALID_USER_NAME_ERROR);
     });
 
     it('should refuse a username length bellow the allowed range', () => {
@@ -20,7 +20,7 @@ describe('userName', () => {
 
       const userName = UserName.create({ value: invalidUserName });
       expect(userName.isError).toBeTruthy();
-      expect(userName.getError()).toEqual(INVALID_USER_NAME);
+      expect(userName.getError()).toEqual(INVALID_USER_NAME_ERROR);
     });
 
     it('should create a valid username', () => {

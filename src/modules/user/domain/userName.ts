@@ -8,7 +8,7 @@ interface UserNameProps {
 
 export const USER_NAME_MIN_LENGTH = 3;
 export const USER_NAME_MAX_LENGTH = 50;
-export const INVALID_USER_NAME = `User Display Name should be between ${USER_NAME_MIN_LENGTH} and ${USER_NAME_MAX_LENGTH} characters.`;
+export const INVALID_USER_NAME_ERROR = `User Display Name should be between ${USER_NAME_MIN_LENGTH} and ${USER_NAME_MAX_LENGTH} characters.`;
 
 export class UserName extends ValueObject<UserNameProps> {
   get value(): string {
@@ -27,7 +27,7 @@ export class UserName extends ValueObject<UserNameProps> {
     });
 
     if (!isValidUserName) {
-      return Result.fail<UserName>(INVALID_USER_NAME);
+      return Result.fail<UserName>(INVALID_USER_NAME_ERROR);
     }
 
     return Result.success<UserName>(new UserName(props));

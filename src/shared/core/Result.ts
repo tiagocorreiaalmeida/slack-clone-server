@@ -38,4 +38,11 @@ export class Result<T> {
   static fail<U>(error: string): Result<U> {
     return new Result<U>(true, error);
   }
+
+  public static combine(results: Result<unknown>[]): Result<unknown> {
+    for (const result of results) {
+      if (result.isError) return result;
+    }
+    return Result.success<unknown>(null);
+  }
 }
