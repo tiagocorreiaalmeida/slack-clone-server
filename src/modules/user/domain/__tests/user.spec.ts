@@ -25,7 +25,7 @@ describe('User', () => {
 
       expect(user.isError).toBeFalsy();
       expect(user.getValue().email).toEqual(userData.email);
-      expect(user.getValue().id).toEqual(userId);
+      expect(user.getValue().userId.value).toEqual(userId);
     });
 
     it('should return a new user with id when one is not provided', () => {
@@ -33,7 +33,7 @@ describe('User', () => {
 
       expect(user.isError).toBeFalsy();
       expect(user.getValue().email).toEqual(userData.email);
-      expect(user.getValue().id).toBeDefined();
+      expect(user.getValue().userId.value).toBeDefined();
     });
   });
 });

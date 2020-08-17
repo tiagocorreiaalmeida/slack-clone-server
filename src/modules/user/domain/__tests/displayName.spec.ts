@@ -1,6 +1,6 @@
 import {
   UserDisplayName,
-  INVALID_DISPLAY_NAME,
+  INVALID_DISPLAY_NAME_ERROR,
   DISPLAY_NAME_MIN_LENGTH,
   DISPLAY_NAME_MAX_LENGTH,
 } from '../userDisplayName';
@@ -12,7 +12,7 @@ describe('displayName', () => {
 
       const userDisplayName = UserDisplayName.create({ value: invalidUserDisplayName });
       expect(userDisplayName.isError).toBeTruthy();
-      expect(userDisplayName.getError()).toEqual(INVALID_DISPLAY_NAME);
+      expect(userDisplayName.getError()).toEqual(INVALID_DISPLAY_NAME_ERROR);
     });
 
     it("should refuse a user's display name length bellow the allowed range", () => {
@@ -20,7 +20,7 @@ describe('displayName', () => {
 
       const userDisplayName = UserDisplayName.create({ value: invalidUserDisplayName });
       expect(userDisplayName.isError).toBeTruthy();
-      expect(userDisplayName.getError()).toEqual(INVALID_DISPLAY_NAME);
+      expect(userDisplayName.getError()).toEqual(INVALID_DISPLAY_NAME_ERROR);
     });
 
     it('should create a valid displayName', () => {

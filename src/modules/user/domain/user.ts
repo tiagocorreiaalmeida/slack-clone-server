@@ -5,6 +5,7 @@ import { UserPassword } from './userPassword';
 import { UniqueEntityID } from '../../../shared/domain/UniqueEntityID';
 import { Result } from '../../../shared/core/Result';
 import { UserName } from './userName';
+import { UserId } from './userId';
 
 interface UserProps {
   email: UserEmail;
@@ -39,8 +40,8 @@ export class User extends Entity<UserProps> {
     return this.props.email;
   }
 
-  get id(): UniqueEntityID {
-    return this._id;
+  get userId(): UserId {
+    return UserId.create(this._id).getValue();
   }
 
   get username(): UserName {

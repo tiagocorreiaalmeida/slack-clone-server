@@ -8,7 +8,7 @@ interface UserDisplayNameProps {
 
 export const DISPLAY_NAME_MIN_LENGTH = 5;
 export const DISPLAY_NAME_MAX_LENGTH = 100;
-export const INVALID_DISPLAY_NAME = `User Display Name should be between ${DISPLAY_NAME_MIN_LENGTH} and ${DISPLAY_NAME_MAX_LENGTH} characters.`;
+export const INVALID_DISPLAY_NAME_ERROR = `User Display Name should be between ${DISPLAY_NAME_MIN_LENGTH} and ${DISPLAY_NAME_MAX_LENGTH} characters.`;
 
 export class UserDisplayName extends ValueObject<UserDisplayNameProps> {
   get value(): string {
@@ -26,7 +26,7 @@ export class UserDisplayName extends ValueObject<UserDisplayNameProps> {
       max: DISPLAY_NAME_MAX_LENGTH,
     });
 
-    if (!isValidDisplayName) return Result.fail<UserDisplayName>(INVALID_DISPLAY_NAME);
+    if (!isValidDisplayName) return Result.fail<UserDisplayName>(INVALID_DISPLAY_NAME_ERROR);
 
     return Result.success<UserDisplayName>(new UserDisplayName(props));
   }

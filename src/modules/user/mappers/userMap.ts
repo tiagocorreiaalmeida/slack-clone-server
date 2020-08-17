@@ -13,7 +13,7 @@ import { UniqueEntityID } from '../../../shared/domain/UniqueEntityID';
 export class UserMap implements Mapper<User> {
   static toPersistance(user: User): UserCreationAttributes {
     return {
-      id: user.id.value,
+      id: user.userId.value.toValue(),
       username: user.username.value,
       email: user.username.value,
       isActive: user.isActive,
