@@ -1,6 +1,5 @@
 import { UserRepo } from '../../domain/userRepo';
 import { UserEmail } from '../../domain/userEmail';
-import { UserName } from '../../domain/userName';
 import { User } from '../../domain/user';
 import { User as UserModel } from '../../../../shared/infra/database/sequelize/models/User';
 import { UserMap } from '../../mappers/userMap';
@@ -8,10 +7,16 @@ import { UserMap } from '../../mappers/userMap';
 export class SequelizeUserRepo implements UserRepo {
   constructor(private userModel: typeof UserModel) {}
 
-  async findByEmailOrUsername(userEmail: UserEmail, username: UserName): Promise<User | null> {
+  async findByEmail(userEmail: UserEmail): Promise<User | null> {
     const user = await this.userModel.findOne({
-      where: { email: userEmail.value, username: username.value },
+      where: { email: userEmail.value },
     });
+
+    return user ? UserMap.toDomain(user) : null;
+  }
+
+  async findById(userId: string): Promise<User | null> {
+    const user = await this.userModel.findByPk(userId);
 
     return user ? UserMap.toDomain(user) : null;
   }

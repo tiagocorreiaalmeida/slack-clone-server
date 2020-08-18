@@ -1,6 +1,5 @@
 import { UserRepo } from '../../domain/userRepo';
 import { UserEmail } from '../../domain/userEmail';
-import { UserName } from '../../domain/userName';
 import { User } from '../../domain/user';
 
 export class InMemoryUserRepo implements UserRepo {
@@ -9,10 +8,8 @@ export class InMemoryUserRepo implements UserRepo {
     this.users = [];
   }
 
-  async findByEmailOrUsername(userEmail: UserEmail, username: UserName): Promise<User | null> {
-    const user = this.users.find(
-      (storedUser) => storedUser.username.equals(username) || storedUser.email.equals(userEmail),
-    );
+  async findByEmail(userEmail: UserEmail): Promise<User | null> {
+    const user = this.users.find((storedUser) => storedUser.email.equals(userEmail));
 
     return user || null;
   }
@@ -20,5 +17,11 @@ export class InMemoryUserRepo implements UserRepo {
   async save(user: User): Promise<User> {
     this.users.push(user);
     return user;
+  }
+
+  async findById(userId: string): Promise<User | null> {
+    const user = this.users.find((storedUser) => storedUser.userId.value.toString() === userId);
+
+    return user || null;
   }
 }

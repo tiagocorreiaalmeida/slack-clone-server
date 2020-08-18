@@ -8,7 +8,7 @@ interface WorkspaceNameProps {
 
 export const WORKSPACE_NAME_MIN_LENGTH = 3;
 export const WORKSPACE_NAME_MAX_LENGTH = 90;
-export const INVALID_WORKSPACE_NAME_ERROR = `The workspace name should have between ${WORKSPACE_NAME_MIN_LENGTH} and ${WORKSPACE_NAME_MAX_LENGTH} characters.`;
+export const INVALID_WORKSPACE_NAME_ERROR = `The workspace name must have between ${WORKSPACE_NAME_MIN_LENGTH} and ${WORKSPACE_NAME_MAX_LENGTH} characters.`;
 
 export class WorkspaceName extends ValueObject<WorkspaceNameProps> {
   get value(): string {

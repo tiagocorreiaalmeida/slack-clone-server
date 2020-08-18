@@ -3,17 +3,18 @@ import { UniqueEntityID } from '../../../shared/domain/UniqueEntityID';
 import { Result } from '../../../shared/core/Result';
 import { WorkspaceName } from './workspaceName';
 import { UserId } from '../../user/domain/userId';
+import { WorkspaceId } from './workspaceId';
 
 interface WorkspaceProps {
   name: WorkspaceName;
-  owner: UserId;
+  ownerId: UserId;
   createdAt: Date;
   updatedAt: Date;
 }
 
 interface CreateWorkspaceProps {
   name: WorkspaceName;
-  owner: UserId;
+  ownerId: UserId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -27,12 +28,12 @@ export class Workspace extends Entity<WorkspaceProps> {
     return this.props.name;
   }
 
-  get id(): UniqueEntityID {
-    return this._id;
+  get workspaceId(): WorkspaceId {
+    return WorkspaceId.create(this._id).getValue();
   }
 
-  get owner(): UserId {
-    return this.props.owner;
+  get ownerId(): UserId {
+    return this.props.ownerId;
   }
 
   static create(props: CreateWorkspaceProps, id?: UniqueEntityID): Result<Workspace> {

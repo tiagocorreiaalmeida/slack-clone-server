@@ -8,10 +8,10 @@ describe('Workspace', () => {
     const name = WorkspaceName.create({
       value: 'a'.repeat(WORKSPACE_NAME_MIN_LENGTH),
     }).getValue();
-    const owner = UserId.create().getValue();
+    const ownerId = UserId.create().getValue();
     const workspaceData = {
       name,
-      owner,
+      ownerId,
     };
 
     it('should return a user', () => {
@@ -20,8 +20,8 @@ describe('Workspace', () => {
 
       expect(workspace.isError).toBeFalsy();
       expect(workspace.getValue().name).toEqual(workspaceData.name);
-      expect(workspace.getValue().id).toEqual(workspaceId);
-      expect(workspace.getValue().owner.value).toEqual(owner.value);
+      expect(workspace.getValue().workspaceId.value).toEqual(workspaceId);
+      expect(workspace.getValue().ownerId.value).toEqual(ownerId.value);
     });
 
     it('should return a new workspace with id when one is not provided', () => {
@@ -29,7 +29,7 @@ describe('Workspace', () => {
 
       expect(workspace.isError).toBeFalsy();
       expect(workspace.getValue().name).toEqual(workspaceData.name);
-      expect(workspace.getValue().id).toBeDefined();
+      expect(workspace.getValue().workspaceId.value).toBeDefined();
     });
   });
 });
