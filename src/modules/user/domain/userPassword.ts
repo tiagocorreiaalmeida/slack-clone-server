@@ -6,7 +6,7 @@ import { Result } from '../../../shared/core/Result';
 
 export const PASSWORD_MIN_LENGTH = 5;
 export const PASSWORD_MAX_LENGTH = 18;
-export const INVALID_PASSWORD_ERROR = `Password should be between ${PASSWORD_MIN_LENGTH} and ${PASSWORD_MAX_LENGTH} characters.`;
+export const INVALID_PASSWORD_ERROR = `Password must be between ${PASSWORD_MIN_LENGTH} and ${PASSWORD_MAX_LENGTH} characters.`;
 
 interface UserPasswordProps {
   value: string;

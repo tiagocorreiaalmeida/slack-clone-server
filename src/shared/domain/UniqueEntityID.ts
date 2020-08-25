@@ -13,10 +13,10 @@ export class UniqueEntityID {
     if (!(id instanceof this.constructor)) {
       return false;
     }
-    return id.toValue() === this.value;
+    return id.toString() === this.value;
   }
 
-  toValue(): string {
+  toString(): string {
     return this.value;
   }
 }

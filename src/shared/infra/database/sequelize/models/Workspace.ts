@@ -1,36 +1,37 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
-import { Workspace } from './Workspace';
+import { User } from './User';
 
-export interface UserAttributes {
+export interface WorkspaceAttributes {
   id: string;
-  email: string;
-  password: string;
+  name: string;
+  ownerId: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export type UserCreationAttributes = Optional<UserAttributes, 'createdAt' | 'updatedAt'>;
+export type WorkspaceCreationAttributes = Optional<WorkspaceAttributes, 'createdAt' | 'updatedAt'>;
 
-export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+export class Workspace extends Model<WorkspaceAttributes, WorkspaceCreationAttributes>
+  implements WorkspaceAttributes {
   id!: string;
-  email!: string;
-  password!: string;
+  name!: string;
+  ownerId!: string;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
 }
 
-export const UserFactory = (sequelize: Sequelize): void => {
-  User.init(
+export const WorkspaceFactory = (sequelize: Sequelize): void => {
+  Workspace.init(
     {
       id: { type: DataTypes.STRING, unique: true, allowNull: false, primaryKey: true },
-      email: {
+      name: {
         type: DataTypes.STRING,
-        unique: true,
+        unique: false,
         allowNull: false,
       },
-      password: {
+      ownerId: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -50,5 +51,5 @@ export const UserFactory = (sequelize: Sequelize): void => {
     },
   );
 
-  User.hasMany(Workspace, { foreignKey: 'ownerId' });
+  Workspace.belongsTo(User);
 };
