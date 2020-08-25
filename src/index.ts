@@ -1,1 +1,1 @@
-console.log('Running');
+import './shared/infra/graphql/server';
