@@ -1,5 +1,5 @@
-import { UserEmail } from './userEmail';
-import { User } from './user';
+import { UserEmail } from '../userEmail';
+import { User } from '../user';
 
 export interface UserRepo {
   save(user: User): Promise<User>;

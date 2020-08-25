@@ -3,8 +3,8 @@ import { CreateUserDTO } from './createWorkspaceDTO';
 import { Result } from '../../../../shared/core/Result';
 import { Workspace } from '../../domain/workspace';
 import { WorkspaceName } from '../../domain/workspaceName';
-import { UserRepo } from '../../../user/domain/userRepo';
-import { WorkspaceRepo } from '../../domain/workspaceRepo';
+import { UserRepo } from '../../../user/domain/repos/userRepo';
+import { WorkspaceRepo } from '../../domain/repos/workspaceRepo';
 import { USER_NOT_FOUND } from './createWorkspaceErrors';
 
 export class CreateWorkspaceUseCase implements UseCase<CreateUserDTO, Result<Workspace>> {
@@ -25,7 +25,12 @@ export class CreateWorkspaceUseCase implements UseCase<CreateUserDTO, Result<Wor
       return Result.fail<Workspace>(USER_NOT_FOUND);
     }
 
-    const workspaceOrError = Workspace.create({ name, ownerId: user.userId });
+    const workspaceOrError = Workspace.create({
+      name,
+      ownerId: user.userId,
+      channels: [],
+      members: [],
+    });
 
     if (workspaceOrError.isError) {
       return Result.fail<Workspace>(workspaceOrError.getError());
@@ -36,8 +41,5 @@ export class CreateWorkspaceUseCase implements UseCase<CreateUserDTO, Result<Wor
     await this.workspaceRepo.save(workspace);
 
     return Result.success<Workspace>(workspace);
-
-    //create member with is admin as true
-    //create geral channel on workspace
   }
 }

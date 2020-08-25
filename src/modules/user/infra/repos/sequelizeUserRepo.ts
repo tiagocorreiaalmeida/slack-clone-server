@@ -1,4 +1,4 @@
-import { UserRepo } from '../../domain/userRepo';
+import { UserRepo } from '../../domain/repos/userRepo';
 import { UserEmail } from '../../domain/userEmail';
 import { User } from '../../domain/user';
 import { User as UserModel } from '../../../../shared/infra/database/sequelize/models/User';

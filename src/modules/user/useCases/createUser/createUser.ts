@@ -4,7 +4,7 @@ import { UserEmail } from '../../domain/userEmail';
 import { UserPassword } from '../../domain/userPassword';
 import { User } from '../../domain/user';
 import { Result } from '../../../../shared/core/Result';
-import { UserRepo } from '../../domain/userRepo';
+import { UserRepo } from '../../domain/repos/userRepo';
 import { EMAIL_TAKEN_ERROR } from './createUserErrors';
 
 export class CreateUserUseCase implements UseCase<CreateUserDTO, Result<User>> {
