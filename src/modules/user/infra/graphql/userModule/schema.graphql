@@ -1,0 +1,23 @@
+""" type Mutation {
+  login(data: LoginInput!): LoginPayload!
+  register(data: RegisterInput!): User!
+  refreshToken: String!
+  logout: Boolean!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+type LoginPayload {
+  user: User!
+  accessToken: String!
+}
+ """
