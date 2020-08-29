@@ -1,6 +1,6 @@
-import { UserRepo } from '../../domain/repos/userRepo';
-import { UserEmail } from '../../domain/userEmail';
-import { User } from '../../domain/user';
+import { UserRepo } from '../../../domain/repos/userRepo';
+import { UserEmail } from '../../../domain/userEmail';
+import { User } from '../../../domain/user';
 
 export class InMemoryUserRepo implements UserRepo {
   users: User[];

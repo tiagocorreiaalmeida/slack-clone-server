@@ -2,7 +2,7 @@ import faker from 'faker';
 
 import { CreateUserUseCase } from '../createUser';
 import { EMAIL_TAKEN_ERROR } from '../createUserErrors';
-import { InMemoryUserRepo } from '../../../infra/repos/inMemoryUserRepo';
+import { InMemoryUserRepo } from '../../../infra/repos/tests/inMemoryUserRepo';
 import { INVALID_EMAIL_ERROR } from '../../../domain/userEmail';
 import { INVALID_PASSWORD_ERROR, PASSWORD_MIN_LENGTH } from '../../../domain/userPassword';
 
@@ -34,16 +34,18 @@ describe('CreateUser', () => {
     expect(user.getError()).toEqual(INVALID_PASSWORD_ERROR);
   });
 
-  it('should create,persist and return a valid domain user', async () => {
-    const domainUser = await createUserUseCase.execute(createUserDTO);
+  it('should create,persist and return a valid createUserDTOResponse', async () => {
+    const createUserDTOResponse = await createUserUseCase.execute(createUserDTO);
 
-    expect(domainUser.isError).toBeFalsy();
-    const user = domainUser.getValue();
+    expect(createUserDTOResponse.isError).toBeFalsy();
+    const response = createUserDTOResponse.getValue();
 
-    expect(user.email.value).toEqual(createUserDTO.email);
-    expect(user.password.isAlreadyHashed).toBeTruthy();
+    expect(response.email).toEqual(createUserDTO.email);
+    expect(response.id).toBeDefined();
 
-    expect(userRepo.users).toContain(domainUser.getValue());
+    expect(
+      userRepo.users.find((storedUser) => storedUser.userId.value.toString() === response.id),
+    ).toBeTruthy();
   });
 
   it('should refuse a duplicated user email', async () => {

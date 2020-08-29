@@ -8,6 +8,7 @@ import { UserId } from './userId';
 interface UserProps {
   email: UserEmail;
   password: UserPassword;
+  isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +16,7 @@ interface UserProps {
 interface CreateUserProps {
   email: UserEmail;
   password: UserPassword;
+  isVerified?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -44,10 +46,15 @@ export class User extends Entity<UserProps> {
     return this.props.password;
   }
 
+  get isVerified(): boolean {
+    return this.props.isVerified;
+  }
+
   static create(props: CreateUserProps, id?: UniqueEntityID): Result<User> {
     const user = new User(
       {
         ...props,
+        isVerified: !!props.isVerified,
         createdAt: props.createdAt || new Date(),
         updatedAt: props.updatedAt || new Date(),
       },

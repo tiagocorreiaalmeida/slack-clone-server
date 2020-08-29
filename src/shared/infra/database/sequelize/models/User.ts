@@ -6,6 +6,7 @@ export interface UserAttributes {
   id: string;
   email: string;
   password: string;
+  isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,6 +17,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   id!: string;
   email!: string;
   password!: string;
+  isVerified!: boolean;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -28,6 +30,11 @@ export const UserFactory = (sequelize: Sequelize): void => {
       email: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
+      },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
       },
       password: {

@@ -7,12 +7,14 @@ import {
 import { UserPassword } from '../domain/userPassword';
 import { UserEmail } from '../domain/userEmail';
 import { UniqueEntityID } from '../../../shared/domain/UniqueEntityID';
+import { UserDTO } from '../dtos/userDTO';
 
 export class UserMap implements Mapper<User> {
   static toPersistance(user: User): UserCreationAttributes {
     return {
       id: user.userId.value.toString(),
       email: user.email.value,
+      isVerified: user.isVerified,
       password: user.password.isAlreadyHashed()
         ? user.password.value
         : user.password.getHashedValue(),
@@ -27,11 +29,18 @@ export class UserMap implements Mapper<User> {
         email: userEmailOrError.getValue(),
         password: userPasswordOrError.getValue(),
         createdAt: user.createdAt,
+        isVerified: user.isVerified,
         updatedAt: user.updatedAt,
       },
       new UniqueEntityID(user.id),
     );
 
     return userOrError.getValue();
+  }
+  static toDTO(user: User): UserDTO {
+    return {
+      id: user.userId.value.toString(),
+      email: user.email.value,
+    };
   }
 }
