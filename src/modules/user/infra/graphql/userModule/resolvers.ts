@@ -1,13 +1,10 @@
-import { createUserUseCase } from '../../../useCases/createUser';
-import { loginUseCase } from '../../../useCases/login';
-import { refreshAccessTokenUseCase } from '../../../useCases/refreshAccessToken';
 import { MutationResolvers } from '../../../../../shared/infra/graphql/generated/typed-schema';
 import { UserInputError } from 'apollo-server-express';
 
 export const resolvers = {
   Mutation: {
-    async login(_, { data }) {
-      const dataOrError = await loginUseCase.execute(data);
+    async login(_, { data }, { useCases }: GraphQLModules.Context) {
+      const dataOrError = await useCases.user.login.execute(data);
       if (dataOrError.isError) {
         throw new UserInputError(dataOrError.getError());
       }
@@ -15,17 +12,19 @@ export const resolvers = {
       //set on cookie the refresh token
       return dataOrError.getValue();
     },
-    async register(_, { data }) {
-      const userOrError = await createUserUseCase.execute(data);
+    async register(_, { data }, { useCases }: GraphQLModules.Context) {
+      const userOrError = await useCases.user.createUser.execute(data);
       if (userOrError.isError) {
         throw new UserInputError(userOrError.getError());
       }
 
       return userOrError.getValue();
     },
-    async refreshToken() {
+    async refreshToken(_, args, { useCases }: GraphQLModules.Context) {
       //get refresh token from cookie
-      const tokensOrError = await refreshAccessTokenUseCase.execute({ refreshToken: '' });
+      const tokensOrError = await useCases.user.refreshAccessToken.execute({
+        refreshToken: '',
+      });
       if (tokensOrError.isError) {
         throw new UserInputError(tokensOrError.getError());
       }

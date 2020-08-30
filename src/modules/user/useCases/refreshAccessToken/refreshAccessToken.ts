@@ -5,7 +5,7 @@ import { UserRepo } from '../../domain/repos/userRepo';
 import { REFRESH_TOKEN_FAILED } from './refreshAccessTokenErrors';
 import { AuthService } from '../../services/authService';
 
-export class RefreshTokenUseCase
+export class RefreshAccessTokenUseCase
   implements UseCase<RefreshAccessTokenDTO, Result<RefreshAccessTokenDTOResponse>> {
   constructor(private userRepo: UserRepo, private authService: AuthService) {}
 

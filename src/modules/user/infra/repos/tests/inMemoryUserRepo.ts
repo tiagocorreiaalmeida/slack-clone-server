@@ -1,8 +1,8 @@
-import { UserRepo } from '../../../domain/repos/userRepo';
+import { UserRepo as IUserRepo } from '../../../domain/repos/userRepo';
 import { UserEmail } from '../../../domain/userEmail';
 import { User } from '../../../domain/user';
 
-export class InMemoryUserRepo implements UserRepo {
+export class InMemoryUserRepo implements IUserRepo {
   users: User[];
   constructor() {
     this.users = [];
@@ -25,3 +25,5 @@ export class InMemoryUserRepo implements UserRepo {
     return user || null;
   }
 }
+
+export const UserRepo = new InMemoryUserRepo();

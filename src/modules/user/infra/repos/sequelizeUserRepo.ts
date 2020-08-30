@@ -1,10 +1,10 @@
-import { UserRepo } from '../../domain/repos/userRepo';
+import { UserRepo as IUserRepo } from '../../domain/repos/userRepo';
 import { UserEmail } from '../../domain/userEmail';
 import { User } from '../../domain/user';
 import { User as UserModel } from '../../../../shared/infra/database/sequelize/models/User';
 import { UserMap } from '../../mappers/userMap';
 
-export class SequelizeUserRepo implements UserRepo {
+export class SequelizeUserRepo implements IUserRepo {
   constructor(private userModel: typeof UserModel) {}
 
   async findByEmail(userEmail: UserEmail): Promise<User | null> {
@@ -29,3 +29,5 @@ export class SequelizeUserRepo implements UserRepo {
     return UserMap.toDomain(storedUser);
   }
 }
+
+export const UserRepo = new SequelizeUserRepo(UserModel);
