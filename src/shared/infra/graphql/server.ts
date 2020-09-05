@@ -1,6 +1,8 @@
 import { ApolloServer } from 'apollo-server-express';
-import express from 'express';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import express, { Response, Request } from 'express';
 import { createServer } from 'http';
+import cookieParser from 'cookie-parser';
 
 import { application } from './application';
 import { UseCases } from '../../../bootstrap/useCases';
@@ -10,6 +12,8 @@ declare global {
   namespace GraphQLModules {
     interface GlobalContext {
       useCases: UseCases;
+      req: Request;
+      res: Response;
     }
   }
 }
@@ -21,11 +25,13 @@ const schema = application.createSchemaForApollo();
 export const startServer = (useCases: UseCases): void => {
   const server = new ApolloServer({
     schema,
-    context: { useCases },
+    context: ({ req, res }) => ({ req, res, useCases }),
   });
 
   const app = express();
+  app.use(cookieParser());
   server.applyMiddleware({ app });
+
   const httpServer = createServer(app);
   server.installSubscriptionHandlers(httpServer);
 

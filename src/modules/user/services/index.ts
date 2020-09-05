@@ -1,3 +1,3 @@
-import { LocalAuthProvider } from './providers/localAuthProvider';
+import { LocalAuthProvider } from './auth/localAuthProvider';
 
 export const authService = new LocalAuthProvider();

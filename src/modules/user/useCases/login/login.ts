@@ -6,7 +6,7 @@ import { Result } from '../../../../shared/core/Result';
 import { UserRepo } from '../../domain/repos/userRepo';
 import { AUTHENTICATION_FAILED, ACCOUNT_NOT_VERIFIED } from './loginErrors';
 import { UserMap } from '../../mappers/userMap';
-import { AuthService } from '../../services/authService';
+import { AuthService } from '../../services/auth/authService';
 
 export class LoginUseCase implements UseCase<LoginDTO, Result<LoginDTOResponse>> {
   constructor(private userRepo: UserRepo, private authService: AuthService) {}

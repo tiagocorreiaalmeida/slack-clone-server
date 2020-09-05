@@ -28,6 +28,10 @@ export class SequelizeUserRepo implements IUserRepo {
 
     return UserMap.toDomain(storedUser);
   }
+
+  async delete(userId: string): Promise<void> {
+    await this.userModel.destroy({ where: { id: userId } });
+  }
 }
 
 export const UserRepo = new SequelizeUserRepo(UserModel);

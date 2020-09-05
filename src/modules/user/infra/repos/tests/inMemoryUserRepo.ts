@@ -24,6 +24,10 @@ export class InMemoryUserRepo implements IUserRepo {
 
     return user || null;
   }
+
+  async delete(userId: string): Promise<void> {
+    this.users = this.users.filter((user) => user.userId.value.toString() !== userId);
+  }
 }
 
 export const UserRepo = new InMemoryUserRepo();

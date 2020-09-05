@@ -1,4 +1,4 @@
-import { JWTClaims, JWTToken, JWTRefreshToken } from '../domain/jwt';
+import { JWTClaims, JWTToken, JWTRefreshToken } from '../../domain/jwt';
 
 export interface AuthService {
   createAccessToken(props: JWTClaims): JWTToken;

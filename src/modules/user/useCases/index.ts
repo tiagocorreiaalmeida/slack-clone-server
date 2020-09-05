@@ -2,7 +2,7 @@ import { CreateUserUseCase } from './createUser/createUser';
 import { LoginUseCase } from './login/login';
 import { RefreshAccessTokenUseCase } from './refreshAccessToken/refreshAccessToken';
 import { UserRepo } from '../domain/repos/userRepo';
-import { AuthService } from '../services/authService';
+import { AuthService } from '../services/auth/authService';
 
 export type UserUseCases = (
   userRepo: UserRepo,

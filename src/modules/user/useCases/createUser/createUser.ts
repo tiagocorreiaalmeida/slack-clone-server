@@ -28,7 +28,7 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Result<CreateUs
       return Result.fail<CreateUserDTOResponse>(EMAIL_TAKEN_ERROR);
     }
 
-    const userOrError = User.create({ email, password });
+    const userOrError = User.create({ email, password, isVerified: true });
 
     if (userOrError.isError) {
       return Result.fail<CreateUserDTOResponse>(userOrError.getError());

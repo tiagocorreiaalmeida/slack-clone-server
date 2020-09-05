@@ -3,7 +3,7 @@ import { RefreshAccessTokenDTO, RefreshAccessTokenDTOResponse } from './refreshA
 import { Result } from '../../../../shared/core/Result';
 import { UserRepo } from '../../domain/repos/userRepo';
 import { REFRESH_TOKEN_FAILED } from './refreshAccessTokenErrors';
-import { AuthService } from '../../services/authService';
+import { AuthService } from '../../services/auth/authService';
 
 export class RefreshAccessTokenUseCase
   implements UseCase<RefreshAccessTokenDTO, Result<RefreshAccessTokenDTOResponse>> {
@@ -11,8 +11,9 @@ export class RefreshAccessTokenUseCase
 
   async execute(request: RefreshAccessTokenDTO): Promise<Result<RefreshAccessTokenDTOResponse>> {
     let userId: string;
+
     try {
-      const tokenData = await this.authService.decodeAccessToken(request.refreshToken);
+      const tokenData = await this.authService.decodeRefreshToken(request.refreshToken);
       userId = tokenData.userId;
     } catch (e) {
       return Result.fail<RefreshAccessTokenDTOResponse>(REFRESH_TOKEN_FAILED);
