@@ -1,5 +1,5 @@
 {
-  "name": "code-join-api",
+  "name": "slack-clone-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tiagocorreiaalmeida/CodeJoin.git"
+    "url": "git+https://github.com/tiagocorreiaalmeida/slack-clone-server.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tiagocorreiaalmeida/CodeJoin/issues"
+    "url": "https://github.com/tiagocorreiaalmeida/slack-clone-server/issues"
   },
-  "homepage": "https://github.com/tiagocorreiaalmeida/CodeJoin#readme",
+  "homepage": "https://github.com/tiagocorreiaalmeida/slack-clone-server#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
