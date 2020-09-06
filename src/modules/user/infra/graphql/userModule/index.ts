@@ -4,7 +4,7 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 
 const userModule = createModule({
-  id: 'user-model',
+  id: 'user-module',
   typeDefs,
   resolvers,
 });

@@ -13,7 +13,7 @@ export type UserUseCases = (
   refreshAccessToken: RefreshAccessTokenUseCase;
 };
 
-export const userUseCases: UserUseCases = (userRepo: UserRepo, authService: AuthService) => ({
+export const userUseCases: UserUseCases = (userRepo, authService) => ({
   createUser: new CreateUserUseCase(userRepo),
   login: new LoginUseCase(userRepo, authService),
   refreshAccessToken: new RefreshAccessTokenUseCase(userRepo, authService),
