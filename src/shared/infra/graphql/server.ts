@@ -1,31 +1,22 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApolloServer } from 'apollo-server-express';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import express, { Response, Request } from 'express';
+import express from 'express';
 import { createServer } from 'http';
 import cookieParser from 'cookie-parser';
 
 import { application } from './application';
-import { UseCases } from '../../../bootstrap/useCases';
 import { env } from '../../../config';
-
-declare global {
-  namespace GraphQLModules {
-    interface GlobalContext {
-      useCases: UseCases;
-      req: Request;
-      res: Response;
-    }
-  }
-}
 
 const { PORT } = env;
 
 const schema = application.createSchemaForApollo();
 
-export const startServer = (useCases: UseCases): void => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const startServer = (context: any): void => {
   const server = new ApolloServer({
     schema,
-    context: ({ req, res }) => ({ req, res, useCases }),
+    context,
   });
 
   const app = express();

@@ -28,6 +28,7 @@ export type Mutation = {
   register: User;
   confirm: Scalars['Boolean'];
   refreshToken: Scalars['String'];
+  createWorkspace: Workspace;
 };
 
 
@@ -43,6 +44,11 @@ export type MutationRegisterArgs = {
 
 export type MutationConfirmArgs = {
   data: ConfirmInput;
+};
+
+
+export type MutationCreateWorkspaceArgs = {
+  data: CreateWorkspaceInput;
 };
 
 export type LoginInput = {
@@ -64,6 +70,26 @@ export type LoginPayload = {
   __typename?: 'LoginPayload';
   user: User;
   accessToken: Scalars['String'];
+};
+
+export type Member = {
+  __typename?: 'Member';
+  userId: Scalars['ID'];
+  workspaceId: Scalars['ID'];
+  fullName: Scalars['String'];
+  displayName?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
+};
+
+export type Workspace = {
+  __typename?: 'Workspace';
+  name: Scalars['String'];
+  ownerId: Scalars['ID'];
+  members?: Maybe<Array<Maybe<Member>>>;
+};
+
+export type CreateWorkspaceInput = {
+  name: Scalars['String'];
 };
 
 
@@ -154,6 +180,9 @@ export type ResolversTypes = {
   RegisterInput: RegisterInput;
   ConfirmInput: ConfirmInput;
   LoginPayload: ResolverTypeWrapper<LoginPayload>;
+  Member: ResolverTypeWrapper<Member>;
+  Workspace: ResolverTypeWrapper<Workspace>;
+  CreateWorkspaceInput: CreateWorkspaceInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -168,6 +197,9 @@ export type ResolversParentTypes = {
   RegisterInput: RegisterInput;
   ConfirmInput: ConfirmInput;
   LoginPayload: LoginPayload;
+  Member: Member;
+  Workspace: Workspace;
+  CreateWorkspaceInput: CreateWorkspaceInput;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -185,6 +217,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'data'>>;
   confirm?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationConfirmArgs, 'data'>>;
   refreshToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createWorkspace?: Resolver<ResolversTypes['Workspace'], ParentType, ContextType, RequireFields<MutationCreateWorkspaceArgs, 'data'>>;
 };
 
 export type LoginPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginPayload'] = ResolversParentTypes['LoginPayload']> = {
@@ -193,11 +226,29 @@ export type LoginPayloadResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type MemberResolvers<ContextType = any, ParentType extends ResolversParentTypes['Member'] = ResolversParentTypes['Member']> = {
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  workspaceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  fullName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isAdmin?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type WorkspaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Workspace'] = ResolversParentTypes['Workspace']> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ownerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  members?: Resolver<Maybe<Array<Maybe<ResolversTypes['Member']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = any> = {
   User?: UserResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   LoginPayload?: LoginPayloadResolvers<ContextType>;
+  Member?: MemberResolvers<ContextType>;
+  Workspace?: WorkspaceResolvers<ContextType>;
 };
 
 
