@@ -33,12 +33,8 @@ export const getContext = ({
     try {
       const decodedToken = await authService.decodeAccessToken(token);
       userId = decodedToken.userId;
-    } catch (e) {
-      console.log('Error decoding token', e);
-    }
+    } catch (e) {}
   }
-
-  console.log('userId', userId);
 
   return {
     req,

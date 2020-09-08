@@ -12,7 +12,8 @@ export interface WorkspaceAttributes {
 
 export type WorkspaceCreationAttributes = Optional<WorkspaceAttributes, 'createdAt' | 'updatedAt'>;
 
-export class Workspace extends Model<WorkspaceAttributes, WorkspaceCreationAttributes>
+export class Workspace
+  extends Model<WorkspaceAttributes, WorkspaceCreationAttributes>
   implements WorkspaceAttributes {
   id!: string;
   name!: string;
